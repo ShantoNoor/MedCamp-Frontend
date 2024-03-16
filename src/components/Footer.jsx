@@ -50,7 +50,7 @@ const Footer = () => {
                 cursor={"pointer"}
                 sx={{
                   fontSize: { xs: "3rem" },
-                  color: (theme) => theme.palette.warning.main,
+                  color: (theme) => theme.palette.primary.main,
                 }}
               />
               <Typography
@@ -63,7 +63,7 @@ const Footer = () => {
                   fontFamily: "monospace",
                   fontWeight: 700,
                   letterSpacing: ".3rem",
-                  color: (theme) => theme.palette.warning.main,
+                  color: (theme) => theme.palette.primary.main,
                   textDecoration: "none",
                   flexGrow: 1,
                 }}
@@ -76,7 +76,9 @@ const Footer = () => {
               <Link to="/" underline={"hover"}>
                 Home
               </Link>
-              <Link to="/contact-us" underline={"hover"}>Contact Us</Link>
+              <Link to="/contact-us" underline={"hover"}>
+                Contact Us
+              </Link>
             </Stack>
           </Box>
           <Box flex={2}>

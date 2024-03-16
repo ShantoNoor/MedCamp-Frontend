@@ -1,12 +1,13 @@
 import { MenuItem, FormControl, Select, InputLabel } from "@mui/material";
 import { Controller } from "react-hook-form";
 
-const SelectFormField = ({ control, name, label, options, defaultValue="", variant="standard" }) => {
+const SelectFormField = ({ control, name, label, options, defaultValue="", variant="standard", required = false }) => {
   return (
     <Controller
       name={name}
       control={control}
       defaultValue={defaultValue}
+      rules={{ required: required ? "This field is required." : undefined }}
       render={({ field }) => (
         <FormControl variant={variant} sx={{ width: "100%" }}>
           <InputLabel id="demo-simple-select-standard-label">

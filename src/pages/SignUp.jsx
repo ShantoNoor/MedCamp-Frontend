@@ -2,7 +2,6 @@ import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -18,7 +17,6 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Divider, Stack } from "@mui/material";
-import SocialLogin from "../components/SocialLogin";
 import PersonIcon from "@mui/icons-material/Person";
 import Animation from "../assets/animations/sign-up.json";
 
@@ -107,6 +105,7 @@ export default function SignUp() {
     const id = toast.loading("Please, wait ....");
     try {
       const { photo, ...data } = all_data;
+
       let photoUrl = "";
       if (photo.length) {
         photoUrl = await uploadPhoto(photo[0]);
@@ -143,8 +142,6 @@ export default function SignUp() {
         sm={false}
         md={7}
         sx={{
-          // backgroundImage: "url(https://www.minopcloud.com/app_assets/images/signin.png)",
-          // backgroundImage: "url(https://source.unsplash.com/random?wallpapers)",
           backgroundRepeat: "no-repeat",
           backgroundColor: (t) =>
             t.palette.mode === "light"
@@ -175,7 +172,7 @@ export default function SignUp() {
         </React.Suspense>
       </Grid>
 
-      <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>
+      <Grid item xs={12} sm={12} md={5}>
         <Box
           sx={{
             my: 8,
@@ -189,7 +186,7 @@ export default function SignUp() {
             <PersonIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign In
+            Register
           </Typography>
           <Box
             component="form"
@@ -317,14 +314,94 @@ export default function SignUp() {
                 <SelectFormField
                   control={control}
                   name={"status"}
-                  label={"Profile Status"}
+                  label={"Profile Type"}
                   variant="outlined"
-                  defaultValue="user"
+                  defaultValue="participant"
                   options={[
-                    { value: "user", label: "User" },
-                    { value: "delivery_man", label: "Delivery Man" },
+                    { value: "participant", label: "Participant" },
+                    { value: "organizer", label: "Organizer" },
+                    {
+                      value: "professionals",
+                      label: "Healthcare Professionals",
+                    },
                   ]}
                 />
+              </Box>
+
+              <Stack spacing={2}>
+                <Stack direction="row" spacing={2}>
+                  <Box flex={1}>
+                    <SelectFormField
+                      control={control}
+                      name={"gender"}
+                      label={"Gender"}
+                      variant="outlined"
+                      options={[
+                        { value: "male", label: "Male" },
+                        { value: "female", label: "Female" },
+                      ]}
+                      required={true}
+                    />
+                    <Typography
+                      component={"p"}
+                      color={"error"}
+                      role="alert"
+                      fontSize={"14px"}
+                    >
+                      {errors?.gender?.message}
+                    </Typography>
+                  </Box>
+                  <Box flex={1}>
+                    <TextField
+                      fullWidth
+                      label="Age"
+                      type="number" // Assuming age is a number
+                      {...register("age", {
+                        required: "Age is required",
+                        min: {
+                          value: 18,
+                          message: "You must be at least 18 years old",
+                        },
+                        max: {
+                          value: 120,
+                          message: "Age cannot exceed 120 years",
+                        },
+                      })}
+                    />
+                    <Typography
+                      component={"p"}
+                      color={"error"}
+                      role="alert"
+                      fontSize={"14px"}
+                    >
+                      {errors?.age?.message}
+                    </Typography>
+                  </Box>
+                </Stack>
+              </Stack>
+
+              <Box flex={1}>
+                <TextField
+                  fullWidth
+                  label="Address"
+                  multiline
+                  rows={4} // Adjust the number of rows as needed
+                  {...register("address", {
+                    required: "Address is required",
+                    minLength: {
+                      value: 5,
+                      message: "Address should have at least 5 characters",
+                    },
+                  })}
+                />
+                <Typography
+                  component={"p"}
+                  color={"error"}
+                  role="alert"
+                  fontSize={"14px"}
+                >
+                  {errors?.address?.message}
+                </Typography>
               </Box>
 
               <Button
@@ -343,20 +420,17 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Register
             </Button>
             <Grid container>
               <Grid item xs />
               <Grid item>
                 <Link to="/sign-in" variant="body2">
-                  {"Already have an account? Sign In"}
+                  {"Already have an account? Login"}
                 </Link>
               </Grid>
             </Grid>
-            <Divider sx={{ my: 4 }} variant="middle">
-              OR
-            </Divider>
-            <SocialLogin />
+            <Divider sx={{ my: 4 }} variant="middle"/>
             <Copyright sx={{ mt: 5 }} />
           </Box>
         </Box>

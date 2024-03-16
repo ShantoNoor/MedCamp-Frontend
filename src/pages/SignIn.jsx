@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -21,7 +20,6 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Divider, Stack } from "@mui/material";
-import SocialLogin from "../components/SocialLogin";
 import Animation from "../assets/animations/sign-in.json";
 
 import { useForm } from "react-hook-form";
@@ -36,7 +34,7 @@ const Player = React.lazy(() =>
 );
 
 export default function SignIn() {
-  useTitle("Sign In")
+  useTitle("Login");
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -107,7 +105,7 @@ export default function SignIn() {
         </React.Suspense>
       </Grid>
 
-      <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>
+      <Grid item xs={12} sm={12} md={5}>
         <Box
           sx={{
             my: 8,
@@ -121,7 +119,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign In
+            Login
           </Typography>
           <Box
             component="form"
@@ -210,7 +208,7 @@ export default function SignIn() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Login
             </Button>
             <Grid container>
               <Grid item xs>
@@ -220,14 +218,11 @@ export default function SignIn() {
               </Grid>
               <Grid item>
                 <Link to="/sign-up" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"Don't have an account? Register"}
                 </Link>
               </Grid>
             </Grid>
-            <Divider sx={{ my: 4 }} variant="middle">
-              OR
-            </Divider>
-            <SocialLogin />
+            <Divider sx={{ my: 4 }} variant="middle" />
             <Copyright sx={{ mt: 5 }} />
           </Box>
         </Box>
