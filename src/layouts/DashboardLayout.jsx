@@ -58,7 +58,7 @@ function DashboardLayout() {
               [
                 "Organizer Profile",
                 "/dashboard/organizer-profile",
-                <AccountCircleIcon key={1} />,
+                <AccountCircleIcon key={15} />,
               ],
               ["Add Camp", "/dashboard/add-camp", <BookmarkAddIcon key={1} />],
               [
@@ -76,17 +76,27 @@ function DashboardLayout() {
           />
         )}
 
-        {/* {user.status === "delivery_man" && (
+        {user.status === "participant" && (
           <DashboardMenu
             menu={[
               [
-                "My Delivery List",
-                "/dashboard/my-delivery-list",
+                "Participant Profile",
+                "/dashboard/participant-profile",
+                <AccountCircleIcon key={1} />,
+              ],
+              [
+                "Registered Camps",
+                "/dashboard/registered-camps",
                 <FormatListBulletedIcon key={1} />,
               ],
               [
-                "My Reviews",
-                "/dashboard/my-reviews",
+                "Payment History",
+                "/dashboard/payment-history",
+                <FormatListBulletedIcon key={3} />,
+              ],
+              [
+                "Feedback and Ratings",
+                "/dashboard/feedback-and-ratings",
                 <ReviewsIcon key={2} />,
               ],
             ]}
@@ -94,29 +104,18 @@ function DashboardLayout() {
           />
         )}
 
-        {user.status === "admin" && (
+        {user.status === "professional" && (
           <DashboardMenu
             menu={[
               [
-                "Statistics",
-                "/dashboard/statistics",
-                <LegendToggleIcon key={1} />,
-              ],
-              [
-                "All Parcels",
-                "/dashboard/all-parcels",
-                <LocalMallIcon key={2} />,
-              ],
-              ["All Users", "/dashboard/all-users", <PeopleIcon key={2} />],
-              [
-                "All Delivery Man",
-                "/dashboard/all-delivery-man",
-                <HailIcon key={2} />,
+                "Professional Profile",
+                "/dashboard/professional-profile",
+                <AccountCircleIcon key={13} />,
               ],
             ]}
             setTitle={setTitle}
           />
-        )} */}
+        )} 
       </List>
       <Divider />
       <DashboardMenu

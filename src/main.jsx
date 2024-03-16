@@ -16,6 +16,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Spinner from "./components/Spinner.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import OrganizerRoute from "./components/OrganizerRoute.jsx";
+import ParticipantRoute from "./components/ParticipantRoute.jsx";
+import ProfessionalRoute from "./components/ProfessionalRoute.jsx";
 
 const AuthProvider = lazy(() => import("./components/AuthProvider.jsx"));
 const CssBaseline = lazy(() => import("@mui/material/CssBaseline"));
@@ -35,7 +37,16 @@ const ContactUs = lazy(() => import("./pages/ContactUs.jsx"));
 const OrganizerProfile = lazy(() => import("./pages/OrganizerProfile.jsx"));
 const AddCamp = lazy(() => import("./pages/AddCamp.jsx"));
 const ManageCamps = lazy(() => import("./pages/ManageCamps.jsx"));
-const ManageRegisteredCamps = lazy(() => import("./pages/ManageRegisteredCamps.jsx"));
+const ManageRegisteredCamps = lazy(() =>
+  import("./pages/ManageRegisteredCamps.jsx")
+);
+const ParticipantProfile = lazy(() => import("./pages/ParticipantProfile.jsx"));
+const RegisteredCamps = lazy(() => import("./pages/RegisteredCamps.jsx"));
+const PaymentHistory = lazy(() => import("./pages/PaymentHistory.jsx"));
+const FeedbackAndRatings = lazy(() => import("./pages/FeedbackAndRatings.jsx"));
+const ProfessionalProfile = lazy(() =>
+  import("./pages/ProfessionalProfile.jsx")
+);
 
 const router = createBrowserRouter([
   {
@@ -83,7 +94,7 @@ const router = createBrowserRouter([
         path: "/dashboard/organizer-profile",
         element: (
           <OrganizerRoute>
-            <ManageCamps />
+            <OrganizerProfile />
           </OrganizerRoute>
         ),
       },
@@ -109,6 +120,48 @@ const router = createBrowserRouter([
           <OrganizerRoute>
             <ManageRegisteredCamps />
           </OrganizerRoute>
+        ),
+      },
+
+      {
+        path: "/dashboard/participant-profile",
+        element: (
+          <ParticipantRoute>
+            <ParticipantProfile />
+          </ParticipantRoute>
+        ),
+      },
+      {
+        path: "/dashboard/registered-camps",
+        element: (
+          <ParticipantRoute>
+            <RegisteredCamps />
+          </ParticipantRoute>
+        ),
+      },
+      {
+        path: "/dashboard/payment-history",
+        element: (
+          <ParticipantRoute>
+            <PaymentHistory />
+          </ParticipantRoute>
+        ),
+      },
+      {
+        path: "/dashboard/feedback-and-ratings",
+        element: (
+          <ParticipantRoute>
+            <FeedbackAndRatings />
+          </ParticipantRoute>
+        ),
+      },
+
+      {
+        path: "/dashboard/professional-profile",
+        element: (
+          <ProfessionalRoute>
+            <ProfessionalProfile />
+          </ProfessionalRoute>
         ),
       },
     ],

@@ -5,6 +5,7 @@ import Spinner from "./Spinner";
 const ProfessionalRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const { pathname, state } = useLocation();
+  console.log(user);
 
   if (loading) return <Spinner />;
   if (user && user.status === "professional") return children;
