@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import styled from "@emotion/styled";
 import { useLocation, useNavigate } from "react-router-dom";
 import Badge from "@mui/material/Badge";
@@ -20,7 +20,7 @@ import NotificationList from "./NotificationList";
 import useAuth from "../hooks/useAuth";
 import UserAvater from "./UserAvater";
 
-const LogoIcon = styled(ShoppingBagIcon)();
+const LogoIcon = styled(MedicalInformationIcon)();
 const logoText = "MedCamp";
 
 const pages = [
