@@ -27,8 +27,8 @@ import PeopleIcon from "@mui/icons-material/People";
 import HailIcon from "@mui/icons-material/Hail";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import ReviewsIcon from '@mui/icons-material/Reviews';
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import ReviewsIcon from "@mui/icons-material/Reviews";
 
 const drawerWidth = 240;
 
@@ -52,25 +52,31 @@ function DashboardLayout() {
       </Stack>
       <Divider />
       <List>
-        {user.status === "user" && (
+        {user.status === "organizer" && (
           <DashboardMenu
             menu={[
               [
-                "Book Parcel",
-                "/dashboard/book-parcel",
-                <BookmarkAddIcon key={1} />,
+                "Organizer Profile",
+                "/dashboard/organizer-profile",
+                <AccountCircleIcon key={1} />,
+              ],
+              ["Add Camp", "/dashboard/add-camp", <BookmarkAddIcon key={1} />],
+              [
+                "Manage Camps",
+                "/dashboard/manage-camps",
+                <BookmarksIcon key={2} />,
               ],
               [
-                "My Parcels",
-                "/dashboard/my-parcels",
-                <BookmarksIcon key={2} />,
+                "Manage Registered Camps",
+                "/dashboard/manage-registered-camps",
+                <BookmarksIcon key={3} />,
               ],
             ]}
             setTitle={setTitle}
           />
         )}
 
-        {user.status === "delivery_man" && (
+        {/* {user.status === "delivery_man" && (
           <DashboardMenu
             menu={[
               [
@@ -110,16 +116,11 @@ function DashboardLayout() {
             ]}
             setTitle={setTitle}
           />
-        )}
+        )} */}
       </List>
       <Divider />
       <DashboardMenu
         menu={[
-          [
-            "My Profile",
-            "/dashboard/my-profile",
-            <AccountCircleIcon key={1} />,
-          ],
           ["Home", "/", <HomeIcon key={1} />],
           ["Sign Out", "/sign-out", <ExitToAppIcon key={2} />],
         ]}

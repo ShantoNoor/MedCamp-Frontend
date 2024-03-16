@@ -321,8 +321,8 @@ export default function SignUp() {
                     { value: "participant", label: "Participant" },
                     { value: "organizer", label: "Organizer" },
                     {
-                      value: "professionals",
-                      label: "Healthcare Professionals",
+                      value: "professional",
+                      label: "Healthcare Professional",
                     },
                   ]}
                 />

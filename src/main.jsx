@@ -15,8 +15,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Spinner from "./components/Spinner.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
-import AdminRoute from "./components/AdminRoute.jsx";
-import UserRoute from "./components/UserRoute.jsx";
+import OrganizerRoute from "./components/OrganizerRoute.jsx";
 
 const AuthProvider = lazy(() => import("./components/AuthProvider.jsx"));
 const CssBaseline = lazy(() => import("@mui/material/CssBaseline"));
@@ -32,6 +31,11 @@ const SignUp = lazy(() => import("./pages/SignUp.jsx"));
 const SignOut = lazy(() => import("./pages/SignOut.jsx"));
 const AvailableCamps = lazy(() => import("./pages/AvailableCamps.jsx"));
 const ContactUs = lazy(() => import("./pages/ContactUs.jsx"));
+
+const OrganizerProfile = lazy(() => import("./pages/OrganizerProfile.jsx"));
+const AddCamp = lazy(() => import("./pages/AddCamp.jsx"));
+const ManageCamps = lazy(() => import("./pages/ManageCamps.jsx"));
+const ManageRegisteredCamps = lazy(() => import("./pages/ManageRegisteredCamps.jsx"));
 
 const router = createBrowserRouter([
   {
@@ -65,94 +69,50 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // {
-  //   path: "/dashboard",
-  //   element: (
-  //     <PrivateRoute>
-  //       <DashboardLayout />
-  //     </PrivateRoute>
-  //   ),
-  //   children: [
-  //     { path: "/dashboard", element: <DashboardRouter /> },
-
-  //     {
-  //       path: "/dashboard/my-profile",
-  //       element: <MyProfile />,
-  //     },
-  //     {
-  //       path: "/dashboard/my-parcels",
-  //       element: (
-  //         <UserRoute>
-  //           <MyParcels />
-  //         </UserRoute>
-  //       ),
-  //     },
-  //     {
-  //       path: "/dashboard/book-parcel",
-  //       element: (
-  //         <UserRoute>
-  //           <BookParcel />
-  //         </UserRoute>
-  //       ),
-  //     },
-  //     {
-  //       path: "/dashboard/update-parcel/:_id",
-  //       element: (
-  //         <UserRoute>
-  //           <UpdateParcel />
-  //         </UserRoute>
-  //       ),
-  //     },
-  //     {
-  //       path: "/dashboard/statistics",
-  //       element: (
-  //         <AdminRoute>
-  //           <Statistics />
-  //         </AdminRoute>
-  //       ),
-  //     },
-  //     {
-  //       path: "/dashboard/all-parcels",
-  //       element: (
-  //         <AdminRoute>
-  //           <AllParcel />
-  //         </AdminRoute>
-  //       ),
-  //     },
-  //     {
-  //       path: "/dashboard/all-users",
-  //       element: (
-  //         <AdminRoute>
-  //           <AllUsers />
-  //         </AdminRoute>
-  //       ),
-  //     },
-  //     {
-  //       path: "/dashboard/all-delivery-man",
-  //       element: (
-  //         <AdminRoute>
-  //           <AllDeliveryMan />
-  //         </AdminRoute>
-  //       ),
-  //     },
-  //     {
-  //       path: "/dashboard/my-delivery-list",
-  //       element: (
-  //         <DeliveryManRoute>
-  //           <MyDeliveryList />
-  //         </DeliveryManRoute>
-  //       ),
-  //     },
-  //     {
-  //       path: "/dashboard/my-reviews",
-  //       element: (
-  //         <DeliveryManRoute>
-  //           <MyReviews />
-  //         </DeliveryManRoute>
-  //       ),
-  //     },
-  //   ],
-  // },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    errorElement: <ErrorPage />,
+    children: [
+      { path: "/dashboard", element: <DashboardRouter /> },
+      {
+        path: "/dashboard/organizer-profile",
+        element: (
+          <OrganizerRoute>
+            <ManageCamps />
+          </OrganizerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/add-camp",
+        element: (
+          <OrganizerRoute>
+            <AddCamp />
+          </OrganizerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manage-camps",
+        element: (
+          <OrganizerRoute>
+            <ManageCamps />
+          </OrganizerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manage-registered-camps",
+        element: (
+          <OrganizerRoute>
+            <ManageRegisteredCamps />
+          </OrganizerRoute>
+        ),
+      },
+    ],
+  },
 ]);
 
 const queryClient = new QueryClient();

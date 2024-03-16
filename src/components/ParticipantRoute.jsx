@@ -1,16 +1,16 @@
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import Spinner from "../components/Spinner";
+import Spinner from "./Spinner";
 
-const AdminRoute = ({ children }) => {
+const ParticipantRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const { pathname, state } = useLocation();
 
   if (loading) return <Spinner />;
-  if (user && user.status === "admin") return children;
+  if (user && user.status === "participant") return children;
   return (
     <Navigate to="/sign-in" state={{ ...state, pathname }} replace={true} />
   );
 };
 
-export default AdminRoute;
+export default ParticipantRoute;
