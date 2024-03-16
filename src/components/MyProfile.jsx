@@ -98,6 +98,7 @@ const MyProfile = () => {
     setValue("age", user.age);
     setValue("gender", user.gender);
     setValue("address", user.address);
+    setValue("preferences", user.preferences);
   }, [user, setValue]);
 
   return (
@@ -243,30 +244,49 @@ const MyProfile = () => {
             />
           </Box>
         </Stack>
+        <Stack direction="row" spacing={2}>
+          <Box flex={1}>
+            <TextField
+              fullWidth
+              label="Address"
+              multiline
+              rows={4} // Adjust the number of rows as needed
+              {...register("address", {
+                required: "Address is required",
+                minLength: {
+                  value: 5,
+                  message: "Address should have at least 5 characters",
+                },
+              })}
+            />
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
+              {errors?.address?.message}
+            </Typography>
+          </Box>
 
-        <Box flex={1}>
-          <TextField
-            fullWidth
-            label="Address"
-            multiline
-            rows={4} // Adjust the number of rows as needed
-            {...register("address", {
-              required: "Address is required",
-              minLength: {
-                value: 5,
-                message: "Address should have at least 5 characters",
-              },
-            })}
-          />
-          <Typography
-            component={"p"}
-            color={"error"}
-            role="alert"
-            fontSize={"14px"}
-          >
-            {errors?.address?.message}
-          </Typography>
-        </Box>
+          <Box flex={1}>
+            <TextField
+              fullWidth
+              label="Preferences"
+              multiline
+              rows={4} // Adjust the number of rows as needed
+              {...register("preferences")}
+            />
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
+              {errors?.preferences?.message}
+            </Typography>
+          </Box>
+        </Stack>
 
         <Button
           component="label"
@@ -278,7 +298,7 @@ const MyProfile = () => {
         </Button>
 
         <Button type="submit" fullWidth variant="contained">
-          Save
+          Update
         </Button>
       </Stack>
     </Box>
