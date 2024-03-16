@@ -37,7 +37,7 @@ const authPages = [
 
 const settings = [
   ["Dashboard", "/dashboard"],
-  ["Profile", "/dashboard/my-profile"],
+  ["My Profile", "/dashboard/my-profile"],
   ["Sign Out", "/sign-out"],
 ];
 

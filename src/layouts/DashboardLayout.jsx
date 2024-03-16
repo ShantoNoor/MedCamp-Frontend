@@ -22,11 +22,6 @@ import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import HomeIcon from "@mui/icons-material/Home";
 
-import LegendToggleIcon from "@mui/icons-material/LegendToggle";
-import PeopleIcon from "@mui/icons-material/People";
-import HailIcon from "@mui/icons-material/Hail";
-import LocalMallIcon from "@mui/icons-material/LocalMall";
-
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 

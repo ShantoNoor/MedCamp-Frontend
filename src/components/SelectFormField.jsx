@@ -1,7 +1,7 @@
 import { MenuItem, FormControl, Select, InputLabel } from "@mui/material";
 import { Controller } from "react-hook-form";
 
-const SelectFormField = ({ control, name, label, options, defaultValue="", variant="standard", required = false }) => {
+const SelectFormField = ({ control, name, label, options, defaultValue="", variant="standard", required = false, multiple = false }) => {
   return (
     <Controller
       name={name}
@@ -18,6 +18,7 @@ const SelectFormField = ({ control, name, label, options, defaultValue="", varia
             id="demo-simple-select-standard"
             {...field}
             label={label}
+            multiple={multiple}
           >
             {options.map((option) => (
               <MenuItem key={option.value} value={option.value}>

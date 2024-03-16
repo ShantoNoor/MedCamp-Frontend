@@ -18,6 +18,7 @@ import PrivateRoute from "./components/PrivateRoute.jsx";
 import OrganizerRoute from "./components/OrganizerRoute.jsx";
 import ParticipantRoute from "./components/ParticipantRoute.jsx";
 import ProfessionalRoute from "./components/ProfessionalRoute.jsx";
+import ProfileRouter from "./components/ProfileRouter.jsx";
 
 const AuthProvider = lazy(() => import("./components/AuthProvider.jsx"));
 const CssBaseline = lazy(() => import("@mui/material/CssBaseline"));
@@ -76,7 +77,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/available-camps",
-        element: <AvailableCamps />,
+        element: (
+          <PrivateRoute>
+            <AvailableCamps />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -163,6 +168,11 @@ const router = createBrowserRouter([
             <ProfessionalProfile />
           </ProfessionalRoute>
         ),
+      },
+
+      {
+        path: "/dashboard/my-profile",
+        element: <ProfileRouter />,
       },
     ],
   },
