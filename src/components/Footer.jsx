@@ -76,7 +76,7 @@ const Footer = () => {
               <Link to="/" underline={"hover"}>
                 Home
               </Link>
-              <Link to="contact-us/" underline={"hover"}>Contact Us</Link>
+              <Link to="/contact-us" underline={"hover"}>Contact Us</Link>
             </Stack>
           </Box>
           <Box flex={2}>

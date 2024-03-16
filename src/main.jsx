@@ -30,6 +30,7 @@ const ErrorPage = lazy(() => import("./pages/ErrorPage.jsx"));
 const SignIn = lazy(() => import("./pages/SignIn.jsx"));
 const SignUp = lazy(() => import("./pages/SignUp.jsx"));
 const SignOut = lazy(() => import("./pages/SignOut.jsx"));
+const AvailableCamps = lazy(() => import("./pages/AvailableCamps.jsx"));
 const ContactUs = lazy(() => import("./pages/ContactUs.jsx"));
 
 const router = createBrowserRouter([
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "/contact-us",
         element: <ContactUs />,
+      },
+      {
+        path: "/available-camps",
+        element: <AvailableCamps />,
       },
     ],
   },

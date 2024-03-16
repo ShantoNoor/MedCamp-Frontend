@@ -26,11 +26,13 @@ const logoText = "MedCamp";
 const pages = [
   ["Home", "/"],
   ["Dashboard", "/dashboard"],
+  ['Available Camps', "/available-camps"],
+  ['Contact Us', "/contact-us"]
 ];
 
 const authPages = [
-  ["Sing In", "/sign-in"],
-  ["Sing Up", "/sign-up"],
+  ["Login", "/sign-in"],
+  ["Register", "/sign-up"],
 ];
 
 const settings = [
@@ -146,7 +148,9 @@ function Navbar() {
                   key={page}
                   onClick={() => {
                     handleCloseNavMenu();
-                    navigate(page[1]);
+                    setTimeout(() => {
+                      navigate(page[1]);
+                    }, 250);
                   }}
                   selected={pathname === page[1]}
                 >
@@ -281,7 +285,9 @@ function Navbar() {
                     key={setting}
                     onClick={() => {
                       handleCloseUserMenu();
-                      navigate(setting[1]);
+                      setTimeout(() => {
+                        navigate(setting[1]);
+                      }, 250);
                     }}
                     selected={pathname === setting[1]}
                   >
