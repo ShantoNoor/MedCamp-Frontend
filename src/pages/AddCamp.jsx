@@ -333,7 +333,7 @@ const AddCamp = () => {
             control={control}
             name={"professionals"}
             label={"Professionals"}
-            variant="outlined"
+            variant="standard"
             options={professionals}
             required={true}
             multiple={true}

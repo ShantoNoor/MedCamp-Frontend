@@ -8,6 +8,8 @@ import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { axiosn } from "../hooks/useAxios";
 import axios from "axios";
+import useDialog from "../hooks/useDialog";
+import AlertDialogSlide from "./AlertDialogSlide";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -31,6 +33,9 @@ const user_options = [
 
 const MyProfile = () => {
   const { user, updateProfile, setUser } = useAuth();
+  const { openDialog, ...dialog } = useDialog(async () => {
+    await handleSubmit(formSubmit)();
+  }, "Are you sure you want to update?");
 
   const {
     register,
@@ -297,10 +302,12 @@ const MyProfile = () => {
           <VisuallyHiddenInput type="file" {...register("photo")} />
         </Button>
 
-        <Button type="submit" fullWidth variant="contained">
+        <Button onClick={openDialog} fullWidth variant="contained">
           Update
         </Button>
       </Stack>
+
+      <AlertDialogSlide {...dialog} />
     </Box>
   );
 };

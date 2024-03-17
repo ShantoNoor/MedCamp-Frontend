@@ -1,7 +1,9 @@
+import MyProfile from "../components/MyProfile";
+
 const ParticipantProfile = () => {
   return (
     <>
-      <div>ParticipantProfile</div>
+      <MyProfile/>
     </>
   );
 };
