@@ -325,6 +325,26 @@ const AddCamp = () => {
               {errors?.date_and_time?.message}
             </Typography>
           </Box>
+
+          <Box flex={1}>
+            <TextField
+              variant="standard"
+              fullWidth
+              label="Target Audience"
+              type="text"
+              {...register("target_audience", {
+                required: "Target Audience is required",
+              })}
+            />
+            <Typography
+              component={"p"}
+              color={"error"}
+              role="alert"
+              fontSize={"14px"}
+            >
+              {errors?.target_audience?.message}
+            </Typography>
+          </Box>
         </Stack>
 
         <Box flex={1}>
