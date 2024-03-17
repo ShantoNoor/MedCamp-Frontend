@@ -19,6 +19,7 @@ export default function AlertDialogSlide({
   open,
   handleClose,
   func,
+  children,
 }) {
   return (
     <React.Fragment>
@@ -30,13 +31,16 @@ export default function AlertDialogSlide({
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle>{title}</DialogTitle>
-        {content !== "" && (
-          <DialogContent>
+
+        <DialogContent>
+          {content !== "" && (
             <DialogContentText id="alert-dialog-slide-description">
               {content}
             </DialogContentText>
-          </DialogContent>
-        )}
+          )}
+          {children}
+        </DialogContent>
+
         <DialogActions>
           <Button onClick={handleClose}>{disagreeText}</Button>
           <Button
