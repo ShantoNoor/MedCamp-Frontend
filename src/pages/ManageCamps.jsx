@@ -40,6 +40,23 @@ const ManageCamps = () => {
     await handleSubmit(formSubmit)();
   }, "Are you sure you wnat to update?");
 
+  const { openDialog: openDeleteDialog, ...deleteDialog } = useDialog(
+    async () => {
+      const id = toast.loading("Please, wait ....");
+      try {
+        await axiosn.delete(`/delete-camp/${update._id}`);
+        toast.dismiss(id);
+        toast.success("Camp Deleted Successfully");
+        refetch();
+      } catch (err) {
+        console.error(err);
+        toast.dismiss(id);
+        toast.error("Unable to Delete Camp");
+      }
+    },
+    "Are you sure you wnat to delete?"
+  );
+
   useEffect(() => {
     if (update) {
       setValue("_id", update._id);
@@ -129,7 +146,15 @@ const ManageCamps = () => {
             Update
           </Button>
 
-          <Button sx={{ ml: 1 }} variant="outlined" size="small">
+          <Button
+            sx={{ ml: 1 }}
+            variant="outlined"
+            size="small"
+            onClick={() => {
+              setUpdate(row);
+              openDeleteDialog();
+            }}
+          >
             Delete
           </Button>
         </>
@@ -288,6 +313,7 @@ const ManageCamps = () => {
           </Stack>
         </Box>
       </AlertDialogSlide>
+      <AlertDialogSlide {...deleteDialog} />
     </>
   );
 };
