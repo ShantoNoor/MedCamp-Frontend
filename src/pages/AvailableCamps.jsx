@@ -113,10 +113,11 @@ const AvailableCamps = () => {
         subHeader={true}
         subHeaderComponent={
           <Input
-            sx={{ width: "300px" }}
+            sx={{ width: "300px", mt: 2 }}
             type="search"
             placeholder="Search here"
             value={searchText}
+            
             onChange={(e) => setSearchText(e.target.value)}
           />
         }
