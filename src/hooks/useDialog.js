@@ -3,6 +3,7 @@ import { useState } from "react";
 const useDialog = (
   func,
   title = "Are you sure about this?",
+  autoClose = true,
   fullScreen = false,
   content = "",
   disagreeText = "No",
@@ -28,6 +29,7 @@ const useDialog = (
     openDialog,
     handleClose,
     fullScreen,
+    autoClose
   };
 };
 

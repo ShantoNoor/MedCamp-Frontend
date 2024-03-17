@@ -35,7 +35,7 @@ const MyProfile = () => {
   const { user, updateProfile, setUser } = useAuth();
   const { openDialog, handleClose, ...dialog } = useDialog(async () => {
     await handleSubmit(formSubmit)();
-  }, "Are you sure you want to update?");
+  }, "Are you sure you want to update?", false);
 
   const {
     register,

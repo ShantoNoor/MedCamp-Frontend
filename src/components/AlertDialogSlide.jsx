@@ -21,6 +21,7 @@ export default function AlertDialogSlide({
   func,
   children,
   fullScreen = false,
+  autoClose = true,
 }) {
   return (
     <React.Fragment>
@@ -48,7 +49,7 @@ export default function AlertDialogSlide({
           <Button
             onClick={async () => {
               await func();
-              // handleClose();
+              if (autoClose) handleClose();
             }}
           >
             {agreeText}

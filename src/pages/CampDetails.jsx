@@ -63,6 +63,7 @@ const CampDetails = () => {
       await handleSubmit(formSubmit)();
     },
     "Are you sure you want to Register?",
+    false,
     true
   );
 

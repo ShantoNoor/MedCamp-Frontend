@@ -83,10 +83,11 @@ const AvailableCamps = () => {
       name: "Healthcare Professionals in Attendance",
       selector: (row) => row.pros.join(", "),
     },
-    // {
-    //   name: "Participants Count",
-    //   selector: (row) => row.pros.join(", "),
-    // },
+    {
+      name: "Participants Count",
+      selector: (row) => row.count,
+      sortable: true,
+    },
     {
       name: "Acion",
       selector: (row) => (
