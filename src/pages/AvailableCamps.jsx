@@ -12,7 +12,7 @@ const AvailableCamps = () => {
   const [searchText, setSearchText] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { data, isPending, error } = useQuery({
     queryKey: ["/available-camps"],
@@ -55,7 +55,6 @@ const AvailableCamps = () => {
           slotProps={{
             textField: {
               variant: "standard",
-              readOnly: true,
             },
           }}
           defaultValue={moment(row.date_and_time).utc()}
@@ -91,7 +90,11 @@ const AvailableCamps = () => {
     {
       name: "Acion",
       selector: (row) => (
-        <Button variant="contained" size="small" onClick={() => navigate(`/camp-details/${row._id}`)}>
+        <Button
+          variant="contained"
+          size="small"
+          onClick={() => navigate(`/camp-details/${row._id}`)}
+        >
           Join Camp
         </Button>
       ),

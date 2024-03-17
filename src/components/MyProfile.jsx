@@ -33,7 +33,7 @@ const user_options = [
 
 const MyProfile = () => {
   const { user, updateProfile, setUser } = useAuth();
-  const { openDialog, ...dialog } = useDialog(async () => {
+  const { openDialog, handleClose, ...dialog } = useDialog(async () => {
     await handleSubmit(formSubmit)();
   }, "Are you sure you want to update?");
 
@@ -75,6 +75,7 @@ const MyProfile = () => {
   };
 
   const formSubmit = async (data) => {
+    handleClose();
     const { photo, ...rest } = data;
     let photoUrl = user.photo ? user.photo : "";
     if (photo.length) {
@@ -307,7 +308,7 @@ const MyProfile = () => {
         </Button>
       </Stack>
 
-      <AlertDialogSlide {...dialog} />
+      <AlertDialogSlide handleClose={handleClose} {...dialog} />
     </Box>
   );
 };

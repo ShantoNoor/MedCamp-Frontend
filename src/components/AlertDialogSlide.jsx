@@ -20,11 +20,13 @@ export default function AlertDialogSlide({
   handleClose,
   func,
   children,
+  fullScreen = false,
 }) {
   return (
     <React.Fragment>
       <Dialog
         open={open}
+        fullScreen={fullScreen}
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
@@ -46,7 +48,7 @@ export default function AlertDialogSlide({
           <Button
             onClick={async () => {
               await func();
-              handleClose();
+              // handleClose();
             }}
           >
             {agreeText}

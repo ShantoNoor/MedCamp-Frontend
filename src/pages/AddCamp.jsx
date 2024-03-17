@@ -61,7 +61,6 @@ const AddCamp = () => {
     },
   });
 
-  // console.log(moment(Date.now()).format("DD-MM-YY hh-mm-ss"));
 
   const uploadPhoto = (photo) => {
     return new Promise((resolve, reject) => {
