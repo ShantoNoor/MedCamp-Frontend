@@ -2,7 +2,6 @@ import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
 
-// import { DatePicker } from "@mui/x-date-pickers";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { useEffect, useState } from "react";
 import { axiosn } from "../hooks/useAxios";
