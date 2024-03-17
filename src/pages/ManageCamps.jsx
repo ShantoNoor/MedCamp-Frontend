@@ -11,6 +11,7 @@ import AlertDialogSlide from "../components/AlertDialogSlide";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
+import SelectFormField from "../components/SelectFormField";
 
 const ManageCamps = () => {
   const { user } = useAuth();
@@ -34,6 +35,7 @@ const ManageCamps = () => {
     handleSubmit,
     formState: { errors },
     setValue,
+    control,
   } = useForm({});
 
   const { openDialog, ...dialog } = useDialog(async () => {
@@ -65,6 +67,7 @@ const ManageCamps = () => {
       setValue("details", update.details);
       setValue("venue", update.venue);
       setValue("services", update.services);
+      setValue("status", update.status);
     }
   }, [update, setValue]);
 
@@ -94,6 +97,7 @@ const ManageCamps = () => {
       name: "Camp Fees",
       selector: (row) => row.fees,
       sortable: true,
+      width: "110px",
     },
     {
       name: "Scheduled Date and Time",
@@ -109,6 +113,11 @@ const ManageCamps = () => {
           readOnly={true}
         />
       ),
+    },
+    {
+      name: "Camp Status",
+      selector: (row) => row.status.toUpperCase(),
+      width: "130px",
     },
     {
       name: "Venue Location",
@@ -237,7 +246,7 @@ const ManageCamps = () => {
                   label="Camp Details"
                   type="text"
                   multiline
-                  rows={4}
+                  rows={3}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -264,7 +273,7 @@ const ManageCamps = () => {
                   label="Camp Venue"
                   type="text"
                   multiline
-                  rows={4}
+                  rows={3}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -295,7 +304,7 @@ const ManageCamps = () => {
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  rows={4}
+                  rows={3}
                   {...register("services", {
                     required: "Camp Services is required",
                   })}
@@ -310,6 +319,27 @@ const ManageCamps = () => {
                 </Typography>
               </Box>
             </Stack>
+            <Box flex={1}>
+              <SelectFormField
+                control={control}
+                name={"status"}
+                label={"Status"}
+                variant="outlined"
+                options={[
+                  { value: "publish", label: "Publish" },
+                  { value: "complete", label: "Complete" },
+                ]}
+                required={true}
+              />
+              <Typography
+                component={"p"}
+                color={"error"}
+                role="alert"
+                fontSize={"14px"}
+              >
+                {errors?.status?.message}
+              </Typography>
+            </Box>
           </Stack>
         </Box>
       </AlertDialogSlide>
