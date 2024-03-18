@@ -51,7 +51,7 @@ const RegisteredCamps = () => {
     async () => {
       const id = toast.loading("Please, wait ....");
       try {
-        await axiosn.delete(`/cancel-registrasion/${update._id}`);
+        await axiosn.delete(`/registrations/${update._id}`);
         toast.dismiss(id);
         toast.success("Cancel Successful");
         refetch();
@@ -153,13 +153,18 @@ const RegisteredCamps = () => {
     <>
       <DataTable data={data} columns={columns} />
       <AlertDialogSlide {...cancelDialog} />
-      <AlertDialogSlide {...paymentDialog} handleClose={payClose} >
+      <AlertDialogSlide {...paymentDialog} handleClose={payClose}>
         {gettingIntent === false && clientSecret ? (
           <Elements
             stripe={stripePromise}
             options={{ clientSecret: clientSecret }}
           >
-            <CheckoutForm payRef={payRef} payClose={payClose} update={update} refetch={refetch} />
+            <CheckoutForm
+              payRef={payRef}
+              payClose={payClose}
+              update={update}
+              refetch={refetch}
+            />
           </Elements>
         ) : (
           <Spinner />

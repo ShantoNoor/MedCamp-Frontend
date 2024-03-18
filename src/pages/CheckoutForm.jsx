@@ -48,7 +48,7 @@ const CheckoutForm = ({ payRef, payClose, update, refetch }) => {
           txid: result.paymentIntent.id,
         };
 
-        await axiosn.put("/update-payment", reqBody);
+        await axiosn.put("/registrations", reqBody);
         toast.dismiss(id);
         toast.success("Update Successful");
         refetch();
