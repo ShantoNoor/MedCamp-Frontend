@@ -8,12 +8,20 @@ import moment from "moment";
 import { Button } from "@mui/material";
 import useDialog from "../hooks/useDialog";
 import AlertDialogSlide from "../components/AlertDialogSlide";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import toast from "react-hot-toast";
+
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
+const stripePromise = loadStripe(import.meta.env.VITE_apiKey_stripe);
 
 const RegisteredCamps = () => {
   const { user } = useAuth();
   const [update, setUpdate] = useState(null);
+  const [clientSecret, setClientSecret] = useState(null);
+  const [gettingIntent, setGettingIntent] = useState(false);
+  const payRef = useRef(null);
 
   const { data, isPending, error, refetch } = useQuery({
     queryKey: ["/registered-camps", `_id=${user._id}`],
@@ -27,24 +35,16 @@ const RegisteredCamps = () => {
     },
   });
 
-  const { openDialog: openPaymentDialog, ...paymentDialog } = useDialog(
+  const {
+    openDialog: openPaymentDialog,
+    handleClose: payClose,
+    ...paymentDialog
+  } = useDialog(
     async () => {
-      const id = toast.loading("Please, wait ....");
-      try {
-        await axiosn.put("/update-payment", {
-          _id: update._id,
-          payment_status: "paid",
-        });
-        toast.dismiss(id);
-        toast.success("Payment Successful");
-        refetch();
-      } catch (err) {
-        console.error(err);
-        toast.dismiss(id);
-        toast.error("Unable to pay");
-      }
+      payRef.current.querySelector('button[type="submit"]').click();
     },
-    "Are you sure you want to pay ?"
+    "Are you sure you want to pay ?",
+    false
   );
 
   const { openDialog: openCancelDialog, ...cancelDialog } = useDialog(
@@ -72,7 +72,7 @@ const RegisteredCamps = () => {
     },
     {
       name: "Camp Fees",
-      selector: (row) => row.fees,
+      selector: (row) => row.camp_fees,
       sortable: true,
       width: "110px",
     },
@@ -97,10 +97,6 @@ const RegisteredCamps = () => {
       selector: (row) => row.camp_venue,
     },
     {
-      name: "Camp Fees",
-      selector: (row) => row.fees,
-    },
-    {
       name: "Payment Status",
       selector: (row) => row.payment_status.toUpperCase(),
     },
@@ -118,9 +114,16 @@ const RegisteredCamps = () => {
             disabled={row.payment_status === "paid"}
             variant="contained"
             size="small"
-            onClick={() => {
+            onClick={async () => {
+              setGettingIntent(true);
               setUpdate(row);
               openPaymentDialog();
+
+              const res = await axiosn.post("/create-payment-intent", {
+                fees: row.camp_fees,
+              });
+              setClientSecret(res.data.clientSecret);
+              setGettingIntent(false);
             }}
           >
             {row.payment_status === "unpaid" ? "Pay" : "Paid"}
@@ -149,8 +152,19 @@ const RegisteredCamps = () => {
   return (
     <>
       <DataTable data={data} columns={columns} />
-      <AlertDialogSlide {...paymentDialog} />
       <AlertDialogSlide {...cancelDialog} />
+      <AlertDialogSlide {...paymentDialog} handleClose={payClose} >
+        {gettingIntent === false && clientSecret ? (
+          <Elements
+            stripe={stripePromise}
+            options={{ clientSecret: clientSecret }}
+          >
+            <CheckoutForm payRef={payRef} payClose={payClose} update={update} refetch={refetch} />
+          </Elements>
+        ) : (
+          <Spinner />
+        )}
+      </AlertDialogSlide>
     </>
   );
 };
