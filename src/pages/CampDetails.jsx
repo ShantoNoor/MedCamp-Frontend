@@ -48,13 +48,18 @@ const CampDetails = () => {
     if (data && user) {
       setValue("user_id", user._id);
       setValue("camp_id", data._id);
+      setValue("organizer_id", data.organizer_id);
 
       setValue("name", user.name);
       setValue("phone", user.phone);
       setValue("age", user.age);
       setValue("gender", user.gender);
       setValue("address", user.address);
-      setValue("fees", data.fees);
+
+      setValue("camp_fees", data.fees);
+      setValue("camp_name", data.name);
+      setValue("camp_date_and_time", data.date_and_time);
+      setValue("camp_venue", data.venue);
     }
   }, [data, user, setValue]);
 
@@ -285,7 +290,7 @@ const CampDetails = () => {
                     shrink: true,
                   }}
                   InputProps={{ readOnly: true }}
-                  {...register("fees", {
+                  {...register("camp_fees", {
                     required: "Camp Fees is required",
                     min: {
                       value: 0,
@@ -299,7 +304,7 @@ const CampDetails = () => {
                   role="alert"
                   fontSize={"14px"}
                 >
-                  {errors?.fees?.message}
+                  {errors?.camp_fees?.message}
                 </Typography>
               </Box>
               <Box flex={1}>
