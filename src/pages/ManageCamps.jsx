@@ -13,8 +13,10 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import SelectFormField from "../components/SelectFormField";
 import isPast from "../utils/isPast";
+import useTitle from "../hooks/useTitle";
 
 const ManageCamps = () => {
+  useTitle('Manage Camps')
   const { user } = useAuth();
 
   const { data, isPending, error, refetch } = useQuery({
@@ -190,7 +192,7 @@ const ManageCamps = () => {
 
   return (
     <>
-      <DataTable data={data} columns={columns} />
+      <DataTable highlightOnHover pagination data={data} columns={columns} />
       <AlertDialogSlide {...dialog}>
         <Box
           component="form"

@@ -5,8 +5,10 @@ import Spinner from "../components/Spinner";
 import moment from "moment";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import DataTable from "react-data-table-component";
+import useTitle from "../hooks/useTitle";
 
 const PaymentHistory = () => {
+  useTitle("Payment History");
   const { user } = useAuth();
 
   const { data, isPending, error } = useQuery({
@@ -69,7 +71,7 @@ const PaymentHistory = () => {
   if (error) return "An error has occurred: " + error.message;
   return (
     <>
-      <DataTable data={data} columns={columns} />
+      <DataTable highlightOnHover pagination data={data} columns={columns} />
     </>
   );
 };

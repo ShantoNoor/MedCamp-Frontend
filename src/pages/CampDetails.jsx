@@ -19,8 +19,10 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import SelectFormField from "../components/SelectFormField";
 import { useEffect } from "react";
+import useTitle from "../hooks/useTitle";
 
 const CampDetails = () => {
+  useTitle("Camp Details");
   const { user } = useAuth();
   const { _id } = useParams();
 

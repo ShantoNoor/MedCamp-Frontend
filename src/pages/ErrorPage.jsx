@@ -21,7 +21,7 @@ const ErrorPage = () => {
   const { status, statusText, ...data } = useRouteError();
   const navigate = useNavigate();
 
-  useTitle("Error");
+  useTitle("Error Page");
 
   return (
     <>

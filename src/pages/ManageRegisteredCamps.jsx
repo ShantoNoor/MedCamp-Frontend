@@ -11,8 +11,10 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import AlertDialogSlide from "../components/AlertDialogSlide";
 import isPast from "../utils/isPast";
+import useTitle from "../hooks/useTitle";
 
 const ManageRegisteredCamps = () => {
+  useTitle("Manage Registered Camps");
   const { user } = useAuth();
   const [update, setUpdate] = useState(null);
 
@@ -109,7 +111,11 @@ const ManageRegisteredCamps = () => {
             sx={{ ml: 1 }}
             variant="outlined"
             size="small"
-            disabled={row.confirmation_status === "confirmed" || row.payment_status === "unpaid" || isPast(row.camp_date_and_time)}
+            disabled={
+              row.confirmation_status === "confirmed" ||
+              row.payment_status === "unpaid" ||
+              isPast(row.camp_date_and_time)
+            }
             onClick={() => {
               setUpdate(row);
               openDialog();
@@ -127,7 +133,9 @@ const ManageRegisteredCamps = () => {
           <Button
             variant="contained"
             size="small"
-            disabled={row.payment_status === "unpaid" || isPast(row.camp_date_and_time)}
+            disabled={
+              row.payment_status === "unpaid" || isPast(row.camp_date_and_time)
+            }
             onClick={() => {
               setUpdate(row);
               openCancelDialog();
@@ -144,7 +152,7 @@ const ManageRegisteredCamps = () => {
   if (error) return "An error has occurred: " + error.message;
   return (
     <>
-      <DataTable data={data} columns={columns} />
+      <DataTable highlightOnHover pagination data={data} columns={columns} />
       <AlertDialogSlide {...dialog} />
       <AlertDialogSlide {...cancelDialog} />
     </>

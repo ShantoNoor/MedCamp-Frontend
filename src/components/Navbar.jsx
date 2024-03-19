@@ -26,8 +26,8 @@ const logoText = "MedCamp";
 const pages = [
   ["Home", "/"],
   ["Dashboard", "/dashboard"],
-  ['Available Camps', "/available-camps"],
-  ['Contact Us', "/contact-us"]
+  ["Available Camps", "/available-camps"],
+  ["Contact Us", "/contact-us"],
 ];
 
 const authPages = [
@@ -38,7 +38,7 @@ const authPages = [
 const settings = [
   ["Dashboard", "/dashboard"],
   ["My Profile", "/dashboard/my-profile"],
-  ["Sign Out", "/sign-out"],
+  ["Log Out", "/sign-out"],
 ];
 
 function Navbar() {

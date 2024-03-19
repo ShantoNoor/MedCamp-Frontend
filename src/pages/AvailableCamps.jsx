@@ -7,8 +7,11 @@ import Spinner from "../components/Spinner";
 import { useEffect, useState } from "react";
 import { Button, Input } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import useTitle from "../hooks/useTitle";
 
 const AvailableCamps = () => {
+  useTitle("Available Camps");
+
   const [searchText, setSearchText] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
@@ -107,6 +110,8 @@ const AvailableCamps = () => {
   return (
     <>
       <DataTable
+        highlightOnHover
+        pagination
         data={filteredData}
         columns={columns}
         fixedHeader
@@ -117,7 +122,6 @@ const AvailableCamps = () => {
             type="search"
             placeholder="Search here"
             value={searchText}
-            
             onChange={(e) => setSearchText(e.target.value)}
           />
         }

@@ -26,7 +26,7 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 const AddCamp = () => {
-  useTitle("Add Camp");
+  useTitle("Add A Camp");
   const { user } = useAuth();
   const [professionals, setProfessionals] = useState([]);
 

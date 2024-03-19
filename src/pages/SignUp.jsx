@@ -51,7 +51,7 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 export default function SignUp() {
-  useTitle("SignUp");
+  useTitle("Register");
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -430,7 +430,7 @@ export default function SignUp() {
                 </Link>
               </Grid>
             </Grid>
-            <Divider sx={{ my: 4 }} variant="middle"/>
+            <Divider sx={{ my: 4 }} variant="middle" />
             <Copyright sx={{ mt: 5 }} />
           </Box>
         </Box>

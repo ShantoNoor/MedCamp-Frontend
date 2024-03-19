@@ -15,9 +15,11 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/CheckoutForm";
 import isPast from "../utils/isPast";
+import useTitle from "../hooks/useTitle";
 const stripePromise = loadStripe(import.meta.env.VITE_apiKey_stripe);
 
 const RegisteredCamps = () => {
+  useTitle('Registered Camps')
   const { user } = useAuth();
   const [update, setUpdate] = useState(null);
   const [clientSecret, setClientSecret] = useState(null);
@@ -112,7 +114,9 @@ const RegisteredCamps = () => {
       selector: (row) => (
         <>
           <Button
-            disabled={row.payment_status === "paid" || isPast(row.camp_date_and_time)}
+            disabled={
+              row.payment_status === "paid" || isPast(row.camp_date_and_time)
+            }
             variant="contained"
             size="small"
             onClick={async () => {
@@ -152,7 +156,7 @@ const RegisteredCamps = () => {
 
   return (
     <>
-      <DataTable data={data} columns={columns} />
+      <DataTable highlightOnHover pagination data={data} columns={columns} />
       <AlertDialogSlide {...cancelDialog} />
       <AlertDialogSlide {...paymentDialog} handleClose={payClose}>
         {gettingIntent === false && clientSecret ? (

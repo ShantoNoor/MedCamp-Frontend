@@ -3,8 +3,10 @@ import MyProfile from "../components/MyProfile";
 import { useEffect, useState } from "react";
 import { axiosn } from "../hooks/useAxios";
 import useAuth from "../hooks/useAuth";
+import useTitle from "../hooks/useTitle";
 
 const OrganizerProfile = () => {
+  useTitle("Organizer Profile");
   const [data, setData] = useState([]);
   const { user } = useAuth();
 

@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import useTitle from "../hooks/useTitle";
 
 const SignOut = () => {
-  useTitle("Sign Out");
+  useTitle("Log Out");
   const { signOut } = useAuth();
   useEffect(() => {
     signOut();

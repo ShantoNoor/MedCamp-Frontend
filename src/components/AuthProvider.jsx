@@ -56,11 +56,11 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     _signOut(auth)
       .then(() => {
-        toast.success("Sign Out successfull!");
+        toast.success("Log Out successfull!");
         return true;
       })
       .catch((err) => {
-        toast.error("Failed To Sign Out");
+        toast.error("Failed To Log Out");
         toast.error(err.message);
         return false;
       });
