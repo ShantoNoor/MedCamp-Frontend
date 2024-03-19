@@ -20,10 +20,10 @@ const ManageCamps = () => {
   const { user } = useAuth();
 
   const { data, isPending, error, refetch } = useQuery({
-    queryKey: ["/manage-camps", `_id=${user._id}`],
+    queryKey: ["/manage-camps", `organizer_id=${user._id}`],
     queryFn: async () => {
       try {
-        const res = await axiosn.get(`/manage-camps?_id=${user._id}`);
+        const res = await axiosn.get(`/manage-camps?organizer_id=${user._id}`);
         return res.data;
       } catch (err) {
         console.error(err);
