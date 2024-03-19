@@ -135,13 +135,17 @@ const OrganizerProfile = () => {
         Participant Feedback
       </Typography>
       <Divider />
-      <Grid container spacing={2} mt={1}>
-        {dletest_reviews?.map((review, idx) => (
-          <Grid item key={idx} sm={12} md={6} lg={4}>
-            <ReviewCard data={review} />
-          </Grid>
-        ))}
-      </Grid>
+      {review_data?.length !== 0 ? (
+        <Grid container spacing={2} mt={1}>
+          {review_data?.map((review, idx) => (
+            <Grid item key={idx} sm={12} md={6} lg={4}>
+              <ReviewCard data={review} />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <Typography variant="h6">No review data found</Typography>
+      )}
     </>
   );
 };

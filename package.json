@@ -27,7 +27,7 @@
     "match-sorter": "^6.3.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
-    "react-countup": "^6.5.0",
+    "react-countup": "^6.5.2",
     "react-data-table-component": "^7.6.2",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",

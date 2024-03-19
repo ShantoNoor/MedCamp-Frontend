@@ -4,27 +4,25 @@ import Spinner from "../components/Spinner";
 import { axiosn } from "../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import Slider from "../components/Slider";
-import { Button, Container, Divider, Grid, Input, Typography } from "@mui/material";
+import { Button, Container, Divider, Grid, Typography } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import DataTable from "react-data-table-component";
 import { useState } from "react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import ReviewCard from "../components/ReviewCard";
+import FeatureStats from "../components/FeatureStats";
 
 const Home = () => {
   useTitle("Home");
 
   const navigate = useNavigate();
-  const [searchText, setSearchText] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
 
   const { data, isPending, error } = useQuery({
     queryKey: ["/home"],
     queryFn: async () => {
       try {
         const res = await axiosn.get(`/home`);
-        setFilteredData(res.data.camps);
         return res.data;
       } catch (err) {
         console.error(err);
@@ -95,6 +93,32 @@ const Home = () => {
     },
   ];
 
+  const columnsOrganizer = [
+    {
+      name: "Organizer Name",
+      selector: (row) => row.organizerName,
+      sortable: true,
+    },
+    {
+      name: "Total Camp Organizered",
+      selector: (row) => row.totalRegistrations,
+      sortable: true,
+    },
+  ];
+
+  const columnsParticipant = [
+    {
+      name: "Participant Name",
+      selector: (row) => row.participantName,
+      sortable: true,
+    },
+    {
+      name: "Total Participants",
+      selector: (row) => row.totalRegistrations,
+      sortable: true,
+    },
+  ];
+
   if (isPending) return <Spinner />;
   if (error) return "An error has occurred: " + error.message;
 
@@ -102,14 +126,14 @@ const Home = () => {
     <Container>
       <Slider imgList={data.imgs} />
 
-      <Typography component={"h2"} variant="h3" sx={{ mt: 4 }}>
+      <Typography component={"h2"} variant="h3" sx={{ mt: 4, mb: 1 }}>
         Popular Medical Camps
       </Typography>
       <Divider />
       <DataTable
         highlightOnHover
         pagination
-        data={filteredData}
+        data={data.camps}
         columns={columns}
         fixedHeader
         subHeaderAlign="center"
@@ -129,13 +153,50 @@ const Home = () => {
       </Typography>
       <Divider />
       <Grid container spacing={2} mt={1}>
-        {data.review_data?.map((review, idx) => (
+        {data?.letest_reviews?.map((review, idx) => (
           <Grid item key={idx} sm={12} md={6} lg={4}>
             <ReviewCard data={review} />
           </Grid>
         ))}
       </Grid>
 
+      <Typography component={"h2"} variant="h3" sx={{ mt: 4 }}>
+        Statistics
+      </Typography>
+      <Divider />
+      <FeatureStats
+        data={{
+          tu: data.totalUsers,
+          tc: data.totalCamps,
+          tr: data.totalRegistrations,
+        }}
+      />
+
+      <Typography component={"h2"} variant="h3" sx={{ mt: 4 }}>
+        Top Organizer
+      </Typography>
+      <Divider />
+      <DataTable
+        highlightOnHover
+        pagination
+        data={data.topOrganizers}
+        columns={columnsOrganizer}
+        fixedHeader
+        subHeaderAlign="center"
+      />
+
+      <Typography component={"h2"} variant="h3" sx={{ mt: 4 }}>
+        Top Participant
+      </Typography>
+      <Divider />
+      <DataTable
+        highlightOnHover
+        pagination
+        data={data.topParticipants}
+        columns={columnsParticipant}
+        fixedHeader
+        subHeaderAlign="center"
+      />
     </Container>
   );
 };

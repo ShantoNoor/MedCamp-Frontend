@@ -42,12 +42,8 @@ export default function ReviewCard({ data }) {
       </CardMedia>
 
       <CardContent>
-        <Typography variant="h6" color="text.secondary">
+        <Typography variant="body2" color="text.secondary">
           {data.review}
-        </Typography>
-
-        <Typography variant="span" component="p" textAlign="right">
-          Organizer: {data.organizer_name}
         </Typography>
       </CardContent>
     </Card>
