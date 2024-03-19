@@ -4,8 +4,11 @@ import { Autoplay, Pagination, Navigation, A11y } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import Spinner from "./Spinner";
 
 const Slider = ({ imgList, className, ...rest }) => {
+  if (!imgList) return <Spinner />;
+
   return (
     <Swiper
       {...rest}

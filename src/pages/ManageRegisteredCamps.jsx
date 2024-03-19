@@ -80,7 +80,7 @@ const ManageRegisteredCamps = () => {
     },
     {
       name: "Scheduled Date and Time",
-      width: "190px",
+      width: "240px",
       selector: (row) => (
         <DateTimePicker
           slotProps={{

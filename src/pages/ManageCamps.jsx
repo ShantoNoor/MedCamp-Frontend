@@ -16,7 +16,7 @@ import isPast from "../utils/isPast";
 import useTitle from "../hooks/useTitle";
 
 const ManageCamps = () => {
-  useTitle('Manage Camps')
+  useTitle("Manage Camps");
   const { user } = useAuth();
 
   const { data, isPending, error, refetch } = useQuery({
@@ -105,6 +105,7 @@ const ManageCamps = () => {
       name: "Camp Name",
       selector: (row) => row.name,
       sortable: true,
+      width: "250px",
     },
     {
       name: "Camp Fees",
@@ -114,6 +115,7 @@ const ManageCamps = () => {
     },
     {
       name: "Scheduled Date and Time",
+      width: "240px",
       selector: (row) => (
         <DateTimePicker
           slotProps={{
@@ -135,10 +137,12 @@ const ManageCamps = () => {
     {
       name: "Venue Location",
       selector: (row) => row.venue,
+      width: "200px",
     },
     {
       name: "Specialized Services Provided",
       selector: (row) => row.services,
+      width: "230px",
     },
     {
       name: "Comprehensive Description",

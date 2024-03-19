@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { Button, Input } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useTitle from "../hooks/useTitle";
+import isPast from "../utils/isPast";
 
 const AvailableCamps = () => {
   useTitle("Available Camps");
@@ -22,8 +23,9 @@ const AvailableCamps = () => {
     queryFn: async () => {
       try {
         const res = await axiosn.get(`/available-camps`);
-        setFilteredData(res.data);
-        return res.data;
+        const fd = res.data.filter((d) => !isPast(d.date_and_time));
+        setFilteredData(fd);
+        return fd;
       } catch (err) {
         console.error(err);
       }
@@ -43,6 +45,7 @@ const AvailableCamps = () => {
       name: "Camp Name",
       selector: (row) => row.name,
       sortable: true,
+      width: "250px",
     },
     {
       name: "Camp Image",
@@ -64,32 +67,39 @@ const AvailableCamps = () => {
           readOnly={true}
         />
       ),
+      width: "250px",
     },
     {
       name: "Venue Location",
       selector: (row) => row.venue,
+      width: "250px",
     },
     {
       name: "Specialized Services Provided",
       selector: (row) => row.services,
+      width: "250px",
     },
     {
       name: "Comprehensive Description",
-      selector: (row) => row.details.slice(0, 80),
+      selector: (row) => row.details,
+      width: "250px",
     },
     {
       name: "Target Audience",
       selector: (row) => row.target_audience,
       sortable: true,
+      width: "250px",
     },
     {
       name: "Healthcare Professionals in Attendance",
       selector: (row) => row.pros.join(", "),
+      width: "250px",
     },
     {
       name: "Participants Count",
       selector: (row) => row.count,
       sortable: true,
+      width: "250px",
     },
     {
       name: "Acion",

@@ -1,6 +1,6 @@
 import { Divider, Grid, Typography } from "@mui/material";
 import MyProfile from "../components/MyProfile";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { axiosn } from "../hooks/useAxios";
 import useAuth from "../hooks/useAuth";
 import useTitle from "../hooks/useTitle";
@@ -53,7 +53,11 @@ const OrganizerProfile = () => {
     },
   });
 
-  console.log(review_data);
+  review_data?.sort((a, b) => {
+    const dateA = moment(a.camp_date_and_time);
+    const dateB = moment(b.camp_date_and_time);
+    return dateB - dateA;
+  });
 
   const columns = [
     {
@@ -132,7 +136,7 @@ const OrganizerProfile = () => {
       </Typography>
       <Divider />
       <Grid container spacing={2} mt={1}>
-        {review_data?.map((review, idx) => (
+        {dletest_reviews?.map((review, idx) => (
           <Grid item key={idx} sm={12} md={6} lg={4}>
             <ReviewCard data={review} />
           </Grid>
