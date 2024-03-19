@@ -10,13 +10,10 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import styled from "@emotion/styled";
 import { useLocation, useNavigate } from "react-router-dom";
-import Badge from "@mui/material/Badge";
 import Divider from "@mui/material/Divider";
-import NotificationList from "./NotificationList";
 import useAuth from "../hooks/useAuth";
 import UserAvater from "./UserAvater";
 
@@ -44,7 +41,6 @@ const settings = [
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [anchorElNotification, setAnchorElNotification] = React.useState(null);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -55,21 +51,12 @@ function Navbar() {
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-
-  const handleOpenUserNotification = (event) => {
-    setAnchorElNotification(event.currentTarget);
-  };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-  };
-
-  const handleCloseUserNotification = () => {
-    setAnchorElNotification(null);
   };
 
   const navigateHome = () => navigate("/");
@@ -216,37 +203,6 @@ function Navbar() {
           </Box>
           {user && (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Show Notifications">
-                <IconButton
-                  color="inherit"
-                  size="large"
-                  onClick={handleOpenUserNotification}
-                  sx={{ p: 0, mr: 2 }}
-                >
-                  <Badge badgeContent={3} color="error">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElNotification}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElNotification)}
-                onClose={handleCloseUserNotification}
-              >
-                <NotificationList />
-              </Menu>
-
               <Tooltip title="Show Settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <UserAvater size={32} />
