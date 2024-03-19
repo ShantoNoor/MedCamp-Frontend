@@ -120,7 +120,7 @@ const ManageCamps = () => {
               readOnly: true,
             },
           }}
-          defaultValue={moment(row.date_and_time).utc()}
+          defaultValue={moment(row.date_and_time)}
           readOnly={true}
         />
       ),

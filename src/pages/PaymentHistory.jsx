@@ -46,7 +46,7 @@ const PaymentHistory = () => {
               readOnly: true,
             },
           }}
-          defaultValue={moment(row.camp_date_and_time).utc()}
+          defaultValue={moment(row.camp_date_and_time)}
           readOnly={true}
         />
       ),

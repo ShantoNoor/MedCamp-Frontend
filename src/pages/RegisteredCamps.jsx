@@ -13,7 +13,8 @@ import toast from "react-hot-toast";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "./CheckoutForm";
+import CheckoutForm from "../components/CheckoutForm";
+import isPast from "../utils/isPast";
 const stripePromise = loadStripe(import.meta.env.VITE_apiKey_stripe);
 
 const RegisteredCamps = () => {
@@ -87,7 +88,7 @@ const RegisteredCamps = () => {
               readOnly: true,
             },
           }}
-          defaultValue={moment(row.date_and_time).utc()}
+          defaultValue={moment(row.camp_date_and_time)}
           readOnly={true}
         />
       ),
@@ -111,7 +112,7 @@ const RegisteredCamps = () => {
       selector: (row) => (
         <>
           <Button
-            disabled={row.payment_status === "paid"}
+            disabled={row.payment_status === "paid" || isPast(row.camp_date_and_time)}
             variant="contained"
             size="small"
             onClick={async () => {

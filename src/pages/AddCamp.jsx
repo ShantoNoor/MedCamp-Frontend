@@ -57,7 +57,7 @@ const AddCamp = () => {
   } = useForm({
     defaultValues: {
       organizer_id: user._id,
-      date_and_time: moment(Date.now()).utc(),
+      date_and_time: moment(Date.now()),
     },
   });
 
@@ -101,7 +101,7 @@ const AddCamp = () => {
       }
       data.photo = photoUrl;
 
-      const res = await axiosn.post("/add-camp", data);
+      const res = await axiosn.post("/add-a-camp", data);
       if (res.status === 201) {
         toast.dismiss(id);
         toast.success("Camp Added Successfully");

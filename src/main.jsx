@@ -113,7 +113,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/add-camp",
+        path: "/dashboard/add-a-camp",
         element: (
           <OrganizerRoute>
             <AddCamp />

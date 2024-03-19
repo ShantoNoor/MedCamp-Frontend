@@ -38,7 +38,7 @@ const CheckoutForm = ({ payRef, payClose, update, refetch }) => {
       // methods like iDEAL, your customer will be redirected to an intermediate
       // site first to authorize the payment, then redirected to the `return_url`.
       toast.dismiss(tid);
-      toast.success("Payment Successful");
+      toast.success("Payment Successful. Your transactionId: " + result.paymentIntent.id);
 
       const id = toast.loading("Updating, wait ....");
       try {

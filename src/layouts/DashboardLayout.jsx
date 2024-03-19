@@ -55,7 +55,11 @@ function DashboardLayout() {
                 "/dashboard/organizer-profile",
                 <AccountCircleIcon key={15} />,
               ],
-              ["Add Camp", "/dashboard/add-camp", <BookmarkAddIcon key={1} />],
+              [
+                "Add Camp",
+                "/dashboard/add-a-camp",
+                <BookmarkAddIcon key={1} />,
+              ],
               [
                 "Manage Camps",
                 "/dashboard/manage-camps",
@@ -110,7 +114,7 @@ function DashboardLayout() {
             ]}
             setTitle={setTitle}
           />
-        )} 
+        )}
       </List>
       <Divider />
       <DashboardMenu
