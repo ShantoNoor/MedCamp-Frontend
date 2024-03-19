@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import SelectFormField from "../components/SelectFormField";
+import isPast from "../utils/isPast";
 
 const ManageCamps = () => {
   const { user } = useAuth();
@@ -62,19 +63,29 @@ const ManageCamps = () => {
   useEffect(() => {
     if (update) {
       setValue("_id", update._id);
-      setValue("name", update.name);
-      setValue("fees", update.fees);
-      setValue("details", update.details);
-      setValue("venue", update.venue);
-      setValue("services", update.services);
-      setValue("status", update.status);
+
+      if (isPast(update.date_and_time)) {
+        setValue("status", "complete");
+      } else {
+        setValue("status", "publish");
+        setValue("name", update.name);
+        setValue("fees", update.fees);
+        setValue("details", update.details);
+        setValue("venue", update.venue);
+        setValue("services", update.services);
+      }
     }
   }, [update, setValue]);
 
   const formSubmit = async (all_data) => {
     const id = toast.loading("Please, wait ....");
     try {
-      const res = await axiosn.put("/update-camp", all_data);
+      const res = await axiosn.put(
+        "/update-camp",
+        isPast(update?.date_and_time)
+          ? { _id: all_data._id, status: all_data.status }
+          : all_data
+      );
       if (res.status === 200) {
         toast.dismiss(id);
         toast.success("Camp Updated Successfully");
@@ -142,6 +153,7 @@ const ManageCamps = () => {
 
     {
       name: "Action",
+      width: "200px",
       selector: (row) => (
         <>
           <Button
@@ -151,14 +163,16 @@ const ManageCamps = () => {
               setUpdate(row);
               openDialog();
             }}
+            disabled={row.status === "complete"}
           >
-            Update
+            {isPast(row.date_and_time) ? "Complete" : "Update"}
           </Button>
 
           <Button
             sx={{ ml: 1 }}
             variant="outlined"
             size="small"
+            disabled={isPast(row.date_and_time)}
             onClick={() => {
               setUpdate(row);
               openDeleteDialog();
@@ -184,141 +198,145 @@ const ManageCamps = () => {
           sx={{ mt: 1, width: "100%" }}
         >
           <Stack spacing={2}>
-            <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-              {/* Camp Name */}
-              <Box flex={1}>
-                <TextField
-                  variant="standard"
-                  fullWidth
-                  label="Camp Name"
-                  autoFocus
-                  type="text"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  {...register("name", {
-                    required: "Camp Name is required",
-                  })}
-                />
-                <Typography
-                  component={"p"}
-                  color={"error"}
-                  role="alert"
-                  fontSize={"14px"}
-                >
-                  {errors?.name?.message}
-                </Typography>
-              </Box>
-              {/* Camp Fees */}
-              <Box flex={1}>
-                <TextField
-                  variant="standard"
-                  fullWidth
-                  label="Camp Fees"
-                  type="number"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  {...register("fees", {
-                    required: "Camp Fees is required",
-                    min: {
-                      value: 0,
-                      message: "Camp Fees must be greater than 0",
-                    },
-                  })}
-                />
-                <Typography
-                  component={"p"}
-                  color={"error"}
-                  role="alert"
-                  fontSize={"14px"}
-                >
-                  {errors?.fees?.message}
-                </Typography>
-              </Box>
-            </Stack>
-            <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-              {/* Camp Details */}
-              <Box flex={1}>
-                <TextField
-                  variant="standard"
-                  fullWidth
-                  label="Camp Details"
-                  type="text"
-                  multiline
-                  rows={3}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  {...register("details", {
-                    required: "Camp Details is required",
-                  })}
-                />
-                <Typography
-                  component={"p"}
-                  color={"error"}
-                  role="alert"
-                  fontSize={"14px"}
-                >
-                  {errors?.details?.message}
-                </Typography>
-              </Box>
-            </Stack>
-            <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-              {/* Camp Venue */}
-              <Box flex={1}>
-                <TextField
-                  variant="standard"
-                  fullWidth
-                  label="Camp Venue"
-                  type="text"
-                  multiline
-                  rows={3}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  {...register("venue", {
-                    required: "Camp Venue is required",
-                  })}
-                />
-                <Typography
-                  component={"p"}
-                  color={"error"}
-                  role="alert"
-                  fontSize={"14px"}
-                >
-                  {errors?.venue?.message}
-                </Typography>
-              </Box>
-            </Stack>
-
-            <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-              {/* Camp Services */}
-              <Box flex={1}>
-                <TextField
-                  variant="standard"
-                  fullWidth
-                  label="Camp Services"
-                  type="text"
-                  multiline
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  rows={3}
-                  {...register("services", {
-                    required: "Camp Services is required",
-                  })}
-                />
-                <Typography
-                  component={"p"}
-                  color={"error"}
-                  role="alert"
-                  fontSize={"14px"}
-                >
-                  {errors?.services?.message}
-                </Typography>
-              </Box>
-            </Stack>
+            {!isPast(update?.date_and_time) && (
+              <>
+                {" "}
+                <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                  {/* Camp Name */}
+                  <Box flex={1}>
+                    <TextField
+                      variant="standard"
+                      fullWidth
+                      label="Camp Name"
+                      autoFocus
+                      type="text"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      {...register("name", {
+                        required: "Camp Name is required",
+                      })}
+                    />
+                    <Typography
+                      component={"p"}
+                      color={"error"}
+                      role="alert"
+                      fontSize={"14px"}
+                    >
+                      {errors?.name?.message}
+                    </Typography>
+                  </Box>
+                  {/* Camp Fees */}
+                  <Box flex={1}>
+                    <TextField
+                      variant="standard"
+                      fullWidth
+                      label="Camp Fees"
+                      type="number"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      {...register("fees", {
+                        required: "Camp Fees is required",
+                        min: {
+                          value: 0,
+                          message: "Camp Fees must be greater than 0",
+                        },
+                      })}
+                    />
+                    <Typography
+                      component={"p"}
+                      color={"error"}
+                      role="alert"
+                      fontSize={"14px"}
+                    >
+                      {errors?.fees?.message}
+                    </Typography>
+                  </Box>
+                </Stack>
+                <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                  {/* Camp Details */}
+                  <Box flex={1}>
+                    <TextField
+                      variant="standard"
+                      fullWidth
+                      label="Camp Details"
+                      type="text"
+                      multiline
+                      rows={3}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      {...register("details", {
+                        required: "Camp Details is required",
+                      })}
+                    />
+                    <Typography
+                      component={"p"}
+                      color={"error"}
+                      role="alert"
+                      fontSize={"14px"}
+                    >
+                      {errors?.details?.message}
+                    </Typography>
+                  </Box>
+                </Stack>
+                <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                  {/* Camp Venue */}
+                  <Box flex={1}>
+                    <TextField
+                      variant="standard"
+                      fullWidth
+                      label="Camp Venue"
+                      type="text"
+                      multiline
+                      rows={3}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      {...register("venue", {
+                        required: "Camp Venue is required",
+                      })}
+                    />
+                    <Typography
+                      component={"p"}
+                      color={"error"}
+                      role="alert"
+                      fontSize={"14px"}
+                    >
+                      {errors?.venue?.message}
+                    </Typography>
+                  </Box>
+                </Stack>
+                <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                  {/* Camp Services */}
+                  <Box flex={1}>
+                    <TextField
+                      variant="standard"
+                      fullWidth
+                      label="Camp Services"
+                      type="text"
+                      multiline
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      rows={3}
+                      {...register("services", {
+                        required: "Camp Services is required",
+                      })}
+                    />
+                    <Typography
+                      component={"p"}
+                      color={"error"}
+                      role="alert"
+                      fontSize={"14px"}
+                    >
+                      {errors?.services?.message}
+                    </Typography>
+                  </Box>
+                </Stack>
+              </>
+            )}
             <Box flex={1}>
               <SelectFormField
                 control={control}
@@ -330,6 +348,7 @@ const ManageCamps = () => {
                   { value: "complete", label: "Complete" },
                 ]}
                 required={true}
+                readOnly={true}
               />
               <Typography
                 component={"p"}

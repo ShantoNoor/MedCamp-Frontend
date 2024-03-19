@@ -6,13 +6,13 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { useEffect, useState } from "react";
 import { axiosn } from "../hooks/useAxios";
 import toast from "react-hot-toast";
-import moment from "moment";
 import useTitle from "../hooks/useTitle";
 import styled from "@emotion/styled";
 
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import SelectFormField from "../components/SelectFormField";
 import axios from "axios";
+import moment from "moment";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -60,7 +60,6 @@ const AddCamp = () => {
       date_and_time: moment(Date.now()).utc(),
     },
   });
-
 
   const uploadPhoto = (photo) => {
     return new Promise((resolve, reject) => {
@@ -306,7 +305,7 @@ const AddCamp = () => {
                   slotProps={{
                     textField: {
                       variant: "standard",
-                      helperText: "MM/DD/YYYY",
+                      helperText: "MM/DD/YYYY hh:mm aa",
                     },
                   }}
                   label="Camp Date and Time"
